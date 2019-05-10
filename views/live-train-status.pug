@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .container.mycontr
+        .row
+            include ./partials/_side-bar.pug
+            include ./partials/_main-content.pug
+                block main-content
+                    .main-block
+                        h3.text-center.bg-primary.myheading Live Train Running Status
+                        h3.text-center Sorry, This service is not available right now.
+                        //- h4.text-center
+                        //-     | Check Live Train Running Status
+                        //- form.form-horizontal(action='/live-train-status')
+                        //-     .form-group
+                        //-         label.control-label.col-sm-3(for='') Enter Train Number:
+                        //-         .col-sm-9
+                        //-             input.form-control(type='text', placeholder='Enter Train no.', name='train' required)
+                        //-     .form-group
+                        //-         label.control-label.col-sm-3(for='') Enter Day:
+                        //-         .col-sm-9
+                        //-             select.form-control(name='day')
+                        //-                 option(value='today', selected='selected', )  Today
+                        //-                 option(value='tomorrow')  Tomorrow
+                        //-                 option(value='yesterday')  Yesterday
+                        //-     button.btn.btn-primary.my-btn(type='submit') Get Status
+                        //-     button.btn.btn-danger.my-btn(type='reset') Clear

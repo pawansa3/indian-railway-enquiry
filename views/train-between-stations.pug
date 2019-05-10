@@ -1,0 +1,63 @@
+extends layout
+
+include mixins/_train_btn_stations
+
+block content
+	.container.mycontr
+		.row
+			include ./partials/_side-bar.pug
+			include ./partials/_main-content.pug
+				block main-content
+					.main-block
+						h3.text-center.bg-primary.myheading Reserved Train Between Stations
+						h4.text-center
+							| Check Train Between Important Stations
+						form.form-horizontal(action='/train-between-stations', method="POST")
+							.form-group
+								label.control-label.col-sm-3(for='date') Enter Journey Date:
+								.col-sm-9
+									input.form-control(type='date', required placeholder='Enter Journey Date', name='date')
+							.form-group
+								label.control-label.col-sm-3(for='source') Enter Source Station:
+								.col-sm-9
+									input.form-control(type='text', required placeholder='Enter Source Station Name', class='tags', name='source')
+							.form-group
+								label.control-label.col-sm-3(for='dest') Enter Destination Station:
+								.col-sm-9
+									input.form-control(type='text', required placeholder='Enter Destination Station Name', class='tags', name='dest')
+							.form-group
+								label.control-label.col-sm-3(for='adjDate') Flexible with Date:
+								.col-sm-9
+									input.form-control(type='checkbox', placeholder='', name='adjDate')
+							button.btn.btn-primary.my-btn(type='submit') Get Train
+							button.btn.btn-danger.my-btn(type='reset') Clear
+		
+		br
+		if data
+			.main-block
+				h3.text-center Search Results
+				.table-responsive
+					table.table.table-bordered.bg-primary
+						thead
+							tr
+								th(rowspan="2") Train No.
+								th(rowspan="2") Train Name
+								th(rowspan="2") Source
+								th(rowspan="2") Departure Time
+								th(rowspan="2") Destination
+								th(rowspan="2") Arrival Time
+								th(rowspan="2") Travel Time
+								th(rowspan="2") Classes
+								th(colspan="7") Day of Run
+							tr
+								th M
+								th T
+								th W
+								th T
+								th F
+								th S
+								th S
+						tbody
+						//- pre #{JSON.stringify(data, null, 2)}
+						each single_data in data.trains
+							+train_btn_stations(single_data)

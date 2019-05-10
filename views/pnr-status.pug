@@ -1,0 +1,96 @@
+extends layout
+
+include mixins/_pnr_status
+include mixins/_pnr_passenger_status
+
+block content
+	.container.mycontr
+		.row
+			include ./partials/_side-bar.pug
+			include ./partials/_main-content.pug
+				block main-content
+					.main-block
+						h3.text-center.bg-primary.myheading Passenger Current Status Enquiry
+						h4.text-center
+							| Enter the PNR for your booking below to get the current status. You will find it on the top left corner of the ticket.
+						form.form-horizontal(action='/pnr-status' method="POST")
+							.form-group
+								label.control-label.col-sm-3(for='') Enter PNR Number:
+								.col-sm-9
+									input.form-control(type='text', placeholder='Enter PNR Number', name='pnr', required)
+							button.btn.btn-primary.my-btn(type='submit') Get Status
+							button.btn.btn-danger.my-btn(type='reset') Clear
+		br
+		if data
+			.main-block
+				h3.text-center You Queried For : PNR Number: #{data.pnr}
+				.table-responsive
+					table.table.table-bordered.bg-primary
+						thead
+							tr
+								th Train No.
+								th Train Name
+								th
+									| Boarding Date
+									br 
+									| (DD-MM-YYYY)
+								th From
+								th To
+								th Reserved Upto
+								th Boarding Point
+								th Class
+						tbody
+							+pnr_status(data)
+						//- pre #{JSON.stringify(data, null, 2)}
+				br
+				.table-responsive
+					table.table.table-bordered.bg-primary
+						thead
+							tr
+								th S. No.
+								th Booking Status
+								th *Current Status
+								th Coach Position
+						tbody
+							each passenger in data.passengers
+								+pnr_passenger_status(passenger)
+				br
+				h3.text-center
+					| *Please Note that in case the Final Charts have not been prepared, the Current Status might upgrade/downgrade at a later stage.
+				.table-responsive
+					table.table
+						thead
+							tr
+								th Symbol
+								th Description
+						tbody
+							tr
+								td CAN / MOD
+								td Cancelled or Modified Passenger
+							tr
+								td CNF / Confirmed
+								td Confirmed (Coach/Berth number will be available after chart preparation)
+							tr
+								td RAC
+								td Reservation Against Cancellation
+							tr
+								td WL #
+								td Waiting List Number
+							tr
+								td RLWL
+								td Remote Location Wait List
+							tr
+								td GNWL
+								td General Wait List
+							tr
+								td PQWL
+								td Pooled Quota Wait List
+							tr
+								td REGRET/WL
+								td No More Booking Permitted
+							tr
+								td RELEASED
+								td Ticket Not Cancelled but Alternative Accommodation Provided
+							tr
+								td TQWL
+								td Tatkal Quota Waitlist

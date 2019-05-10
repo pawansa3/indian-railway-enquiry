@@ -1,0 +1,14 @@
+mixin seat_availability(data={})
+    tr
+        td= data.train.number
+        td= data.train.name
+        td= data.availability[0].date
+        td= data.from_station.name
+        td= data.to_station.name
+        td= data.quota.code
+
+mixin seat_availability_alternate(data={},i)
+    tr
+        td #{i+1}
+        td= data.date
+        td= data.status

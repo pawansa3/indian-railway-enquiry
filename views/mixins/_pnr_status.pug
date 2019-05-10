@@ -1,0 +1,11 @@
+mixin pnr_status(data={})
+    //- pre= JSON.stringify(data, null, 2)
+    tr
+        td= data.train.number
+        td= data.train.name
+        td= data.doj
+        td= data.from_station.code
+        td= data.to_station.code
+        td= data.reservation_upto.code
+        td= data.boarding_point.code
+        td= data.journey_class.code

@@ -1,0 +1,6 @@
+mixin pnr_passenger_status(data={})
+    tr
+        td Passenger #{data.no+1}
+        td= data.booking_status
+        td= data.current_status
+        td NAN

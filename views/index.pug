@@ -1,0 +1,15 @@
+extends layout
+
+
+block content
+    .container.mycontr
+        .row
+            include ./partials/_side-bar.pug
+            include ./partials/_main-content.pug
+                block main-content
+                    .main-block
+                        img.img-responsive.block-img(src='/images/5.jpg', alt='image')
+                        h4
+                            a(href='#') Experience Our Service
+                        p
+                        | India has some of the most spectacular and unforgettable rail journeys in the world. Here you experience a simple way to find out everything you need to know in one easy place. There's no better way to enjoy India's outback, cities, coastal towns and regional areas in comfort.

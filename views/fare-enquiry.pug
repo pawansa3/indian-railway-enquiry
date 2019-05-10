@@ -1,0 +1,89 @@
+extends layout
+
+include mixins/_fare_enquiry
+
+block content
+	.container.mycontr
+		.row
+			include ./partials/_side-bar.pug
+			include ./partials/_main-content.pug
+				block main-content
+					.main-block
+						h3.text-center.bg-primary.myheading Fare Enquiry
+						h4.text-center
+							| Check Train Fare
+						form.form-horizontal(action='/fare-enquiry' method="POST")
+							.form-group
+								label.control-label.col-sm-3(for='Train no.') Enter Train Number:
+								.col-sm-9
+									input.form-control(type='text', placeholder='Enter Train no.', name='train')
+							.form-group
+								label.control-label.col-sm-3(for='Date') Enter Journey Date:
+								.col-sm-9
+									input.form-control(type='date', placeholder='Enter Journey Date', name='date' required)
+							.form-group
+								label.control-label.col-sm-3(for='Source') Enter Source Station:
+								.col-sm-9
+									input.form-control(type='text', placeholder='Enter Source Station Name', class='tags', name='source' required)
+							.form-group
+								label.control-label.col-sm-3(for='Destination') Enter Destination Station:
+								.col-sm-9
+									input.form-control(type='text', placeholder='Enter Destination Station Name', class='tags', name='dest' required)
+							.form-group
+								label.control-label.col-sm-3(for='Class') Enter Class:
+								.col-sm-9
+									select.form-control(name='pref')
+										option(value='1A')  FIRST AC
+										option(value='EC')  EXECUTIVE CLASS
+										option(value='EA') EXECUTIVE ANUBHUTI
+										option(value='2A')  SECOND AC
+										option(value='3A')  THIRD AC
+										option(value='3E') 3 AC Economy
+										option(value='CC')  AC CHAIR CAR
+										option(value='FC')  FIRST CLASS
+										option(selected='selected', value='SL')  SLEEPER CLASS
+										option(value='2S')  SECOND SEATING
+							.form-group
+								label.control-label.col-sm-3(for='Quota') Enter Quota:
+								.col-sm-9
+									select.form-control(name='quota')
+										option(value='TQ')  Tatkal Quota
+										option(value='LD')  Ladies Quota
+										option(value='DF')  Defence Quota
+										option(value='FT')  Foreign Tourist Quota
+										option(value='SS')  Lower Berth Quota
+										option(value='PT')  Premium Tatkal Quota
+										option(value='YU')  Yuva Quota
+										option(value='DP')  Duty Pass Quota
+										option(value='HP')  Handicaped Quota
+										option(value='PH')  Parliament House
+										option(selected='selected', value='GN')  General Quota
+							button.btn.btn-primary.my-btn(type='submit') Get Fare
+							button.btn.btn-danger.my-btn(type='reset') Clear
+		br
+		if data
+			.main-block
+				h3.text-center You Queried For :
+				//- pre #{JSON.stringify(data, null, 2)}
+				.table-responsive
+					table.table.table-bordered.bg-primary
+						thead
+							tr
+								th Train No.
+								th Train Name
+								th Date (DD-MM-YYYY)
+								th Source
+								th Destination
+								th Quota
+						tbody
+							+fare_enquiry(data, date)
+				br
+				.table-responsive
+					table.table.table-bordered.bg-primary
+						thead
+							tr
+								th Train Type
+								th Class
+								th Total Fare (in Rs.)
+						tbody
+							+fare_enquiry_fare(data)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        title= `${title} | ${h.siteName}`
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css')
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        link(rel="stylesheet", href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
+        link(rel='icon', href='/images/favicon.ico', type='image/x-icon')
+        link(href='/css/style.css', rel='stylesheet')
+    body
+        block header
+            include ./partials/_header.pug
+
+        
+        block messages
+        //- pre= JSON.stringify(locals, null, 2)
+        if locals.flashes
+            .container
+                - const categories = Object.keys(locals.flashes)
+                each category in categories
+                    each message in flashes[category]
+                        .alert(class=`alert-${category==='error' ? 'danger' : category}`).alert-dismissible
+                            a.close(href='#', data-dismiss='alert', aria-label='close') ×
+                            strong #{category.toUpperCase()}! 
+                            | #{message}
+
+        block content
+
+        block footer
+            include ./partials/_footer.pug
+        block scripts
+            script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js')
+            script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js')
+            script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+            script(src='/js/javascript.js')

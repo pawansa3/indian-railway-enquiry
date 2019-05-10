@@ -1,0 +1,14 @@
+mixin fare_enquiry(data={},date)
+    tr
+        td= data.train.number
+        td= data.train.name
+        td= date
+        td= data.from_station.name
+        td= data.to_station.name
+        td= data.quota.code
+
+mixin fare_enquiry_fare(data={})
+    tr
+        td= data.train.name
+        td= data.journey_class.code
+        td= data.fare

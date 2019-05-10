@@ -1,0 +1,15 @@
+mixin train_btn_stations(data={})
+    //- pre= JSON.stringify(data, null, 2)
+    tr
+        td= data.number
+        td= data.name
+        td= data.from_station.name
+        td= data.src_departure_time
+        td= data.to_station.name
+        td= data.dest_arrival_time
+        td= data.travel_time
+        td 
+            each c in data.classes
+                span #{c.code}  
+        each day in data.days
+            td= day.runs 
